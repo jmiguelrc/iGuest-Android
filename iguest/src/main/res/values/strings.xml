@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">iGuest</string>
+
+    <!-- Action Button texts -->
+    <string name="add_to_guest">Add to Guest List</string>
+    <string name="map">Map</string>
+    <string name="share">Share</string>
+    <string name="load">Load</string>
+
+    <!-- Toast texts -->
+    <string name="no_internet_connection">Internet connection not available</string>
+    <string name="updated">Refreshed</string>
+
+    <!-- Dialog box texts -->
+    <string name="parties">Events</string>
+    <string name="no_parties_available">There are no events available. Check again later</string>
+    <string name="ok">OK</string>
+    <string name="internet_error">Internet</string>
+    <string name="unavailable_network">You need a network connection to receive the events list</string>
+
+    <!-- Notification texts -->
+
+    <!-- Add Guest Dialog texts -->
+    <string name="add_guest_title">Add to Guest List</string>
+    <string name="user_name">Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="add_guest_button">Add to Guest</string>
+
+    <!-- Add Guest result texts -->
+    <string name="add_success_title">Added to Guest List</string>
+    <string name="incorrect_details">Incorrect details provided!</string>
+
+    <!-- Share texts -->
+    <string name="share_with">Share with</string>
+    <string name="share_first_part">"I am already inscribed in the guest list for "</string>
+    <string name="share_middle_part">" in "</string>
+
+</resources>

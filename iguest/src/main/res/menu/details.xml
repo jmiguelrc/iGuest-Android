@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/btAddGuest"
+        android:icon="@drawable/ic_action_new"
+        android:orderInCategory="100"
+        android:title="@string/add_to_guest"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction" />
+
+    <item
+        android:id="@+id/btMaps"
+        android:icon="@drawable/ic_action_map"
+        android:orderInCategory="200"
+        android:title="@string/map"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction" />
+
+
+    <item
+        android:id="@+id/btShare"
+        android:icon="@drawable/ic_action_share"
+        android:orderInCategory="300"
+        android:title="@string/share"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction" />
+
+</menu>
