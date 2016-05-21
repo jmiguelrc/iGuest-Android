@@ -1,4 +1,4 @@
-package pt.pemitech.iguest.fragments;
+package pt.pemitech.iguest.mvp.event_details;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,9 +24,6 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.squareup.picasso.Picasso;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,16 +31,12 @@ import java.util.Date;
 
 import pt.pemitech.iguest.IGuestApplication;
 import pt.pemitech.iguest.R;
-import pt.pemitech.iguest.activities.MainActivity;
+import pt.pemitech.iguest.mvp.MainActivity;
 import pt.pemitech.iguest.api.RestClient;
-import pt.pemitech.iguest.model.Club;
-import pt.pemitech.iguest.model.Event;
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
-import retrofit.mime.TypedInput;
+import pt.pemitech.iguest.pojo.Club;
+import pt.pemitech.iguest.pojo.Event;
 
-public class DetailsFragment extends Fragment {
+public class EventDetailsView extends Fragment implements IEventDetailsMvp.View {
 
     private UnfoldableView mUnfoldableView;
     private TextView mTVDetails;
@@ -56,6 +48,7 @@ public class DetailsFragment extends Fragment {
     public static Event mEvent;
     private TextView mDescriptionView;
     private Club mClub;
+    private IEventDetailsMvp.Presenter mPresenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -186,7 +179,7 @@ public class DetailsFragment extends Fragment {
         //Tracking View
         Tracker t = ((IGuestApplication) getActivity().getApplication()).getTracker(
         );
-        t.setScreenName("DetailsFragment");
+        t.setScreenName("EventDetailsView");
         t.send(new HitBuilders.AppViewBuilder().build());
 
         // Build and send an Event
@@ -197,6 +190,11 @@ public class DetailsFragment extends Fragment {
                 .build());
 
         mEvent = event;
+
+        mPresenter = new EventDetailsPresenter(this);
+        mPresenter.getClub(mEvent);
+        mPresenter.getEventDescription(mEvent);
+
         Picasso.with(getActivity())
                 .load(RestClient.SERVER + "/" + event.getImage())
                 .resize(500, 200)
@@ -216,48 +214,6 @@ public class DetailsFragment extends Fragment {
 
         mTVDetails.setText("");
 
-        RestClient.get().getEventDescription(mEvent.getId(), new Callback<Response>() {
-            @Override
-            public void success(Response response, Response ignored) {
-                TypedInput body = response.getBody();
-                if (body == null)
-                    return;
-                try {
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(body.in()));
-                    StringBuilder out = new StringBuilder();
-                    String newLine = System.getProperty("line.separator");
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        out.append(line);
-                        out.append(newLine);
-                    }
-
-                    mTVDetails.setText(Html.fromHtml(out.toString()));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-            }
-        });
-
-        RestClient.get().getClub(mEvent.getClubId(), new Callback<Club>() {
-            @Override
-            public void success(Club club, Response response) {
-                mClub = club;
-                if (mMenu != null) {
-                    mMenu.findItem(R.id.btMaps).setVisible(true);
-                }
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-
-            }
-        });
-
         mDetailsLayout.setVisibility(View.VISIBLE);
         mUnfoldableView.unfold(coverView, mDetailsLayout);
 
@@ -266,5 +222,23 @@ public class DetailsFragment extends Fragment {
             mMenu.findItem(R.id.btShare).setVisible(true);
             mMenu.findItem(R.id.menu_load).setVisible(false);
         }
+    }
+
+    @Override
+    public void showEventDescription(String description) {
+        mTVDetails.setText(description);
+    }
+
+    @Override
+    public void showClubInfo(Club club) {
+        mClub = club;
+        if (mMenu != null) {
+            mMenu.findItem(R.id.btMaps).setVisible(true);
+        }
+    }
+
+    @Override
+    public void showErrorMessage(String error) {
+        // Do nothing
     }
 }

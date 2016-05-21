@@ -1,4 +1,4 @@
-package pt.pemitech.iguest.model;
+package pt.pemitech.iguest.pojo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

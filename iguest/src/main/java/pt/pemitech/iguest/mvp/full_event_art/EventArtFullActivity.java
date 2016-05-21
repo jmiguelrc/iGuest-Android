@@ -1,4 +1,4 @@
-package pt.pemitech.iguest.activities;
+package pt.pemitech.iguest.mvp.full_event_art;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,7 +16,7 @@ import pt.pemitech.iguest.IGuestApplication;
 import pt.pemitech.iguest.R;
 import pt.pemitech.iguest.api.RestClient;
 
-public class EventArtFull extends Activity {
+public class EventArtFullActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class EventArtFull extends Activity {
 
         Tracker t = ((IGuestApplication) getApplication()).getTracker(
         );
-        t.setScreenName("EventArtFull");
+        t.setScreenName("EventArtFullActivity");
         t.send(new HitBuilders.AppViewBuilder().build());
 
         final View contentView = findViewById(R.id.fullscreen_content);
