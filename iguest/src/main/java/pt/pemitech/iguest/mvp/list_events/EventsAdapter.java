@@ -1,4 +1,4 @@
-package pt.pemitech.iguest.adapters;
+package pt.pemitech.iguest.mvp.list_events;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -15,9 +15,9 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import pt.pemitech.iguest.R;
-import pt.pemitech.iguest.activities.MainActivity;
+import pt.pemitech.iguest.mvp.MainActivity;
 import pt.pemitech.iguest.api.RestClient;
-import pt.pemitech.iguest.model.Event;
+import pt.pemitech.iguest.pojo.Event;
 
 public class EventsAdapter extends ItemsAdapter<Event> implements View.OnClickListener {
 
@@ -45,7 +45,7 @@ public class EventsAdapter extends ItemsAdapter<Event> implements View.OnClickLi
 
         vh.image.setTag(item);
         Picasso.with(convertView.getContext())
-                .load(RestClient.SERVER + "/" +item.getImage())
+                .load(RestClient.SERVER + "/" + item.getImage())
                 .resize(700,280)
                 //.fit()
                 .centerCrop()

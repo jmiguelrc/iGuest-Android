@@ -8,7 +8,7 @@ import retrofit.RestAdapter;
 @SuppressWarnings("DefaultFileTemplate")
 public class RestClient {
 
-    private static RestApi restClientInstance = null;
+    private static IRestApi restClientInstance = null;
     public static final String SERVER = "https://stark-escarpment-6928.herokuapp.com";
 
     static {
@@ -17,7 +17,7 @@ public class RestClient {
 
     private RestClient() {}
 
-    public synchronized static RestApi get() {
+    public synchronized static IRestApi get() {
         if (restClientInstance == null)
             setupRestClient();
         return restClientInstance;
@@ -29,6 +29,6 @@ public class RestClient {
                 .setLogLevel(RestAdapter.LogLevel.FULL);
 
         RestAdapter restAdapter = builder.build();
-        restClientInstance = restAdapter.create(RestApi.class);
+        restClientInstance = restAdapter.create(IRestApi.class);
     }
 }
