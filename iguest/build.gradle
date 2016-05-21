@@ -22,7 +22,7 @@ android {
 }
 
 dependencies {
-    compile project(':library')
+    compile project(':foldable_layout')
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.alexvasilkov:fluffy-commons:1.0.9'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
